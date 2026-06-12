@@ -26,6 +26,20 @@ JWT_SECRET = os.getenv('JWT_SECRET', 'change-me-in-production')
 
 # ---------------- App ----------------
 app = FastAPI(title="NEXGENT EXECUTVES Platform")
+app = FastAPI(title="NEXGENT EXECUTIVES Platform")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://nexgen-executives.vercel.app",
+        "http://localhost:5173",
+        "http://localhost:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 api_router = APIRouter(prefix="/api")
 
 logging.basicConfig(level=logging.INFO)
