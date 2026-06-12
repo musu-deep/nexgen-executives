@@ -48,8 +48,7 @@ export default function AppLayout() {
             <img src={ARAK_LOGO} alt="NEXGEN EXECUTIVES" className="h-14 w-auto object-contain" />
           </div>
           <div className="mt-3 text-center text-[10px] uppercase tracking-[0.25em] text-slate-500">AI Chief of Staff</div>
-          <div className="mt-3 flex justify-center"><LanguageToggle compact /></div>
-        </div>
+          </div>
 
         <nav className="flex-1 px-3 py-5 space-y-1 overflow-y-auto">
           {NAV.filter(n => !n.roles || n.roles.includes(user?.role)).map(({ to, icon: Icon, label, testId }) => (
