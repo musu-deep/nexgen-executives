@@ -12,7 +12,7 @@ from datetime import datetime, timezone, timedelta
 from typing import List, Optional, Literal
 
 from fastapi import FastAPI, APIRouter, Request, Response, HTTPException, Depends
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field, EmailStr
 
@@ -25,25 +25,28 @@ JWT_ALGORITHM = 'HS256'
 JWT_SECRET = os.getenv('JWT_SECRET', 'change-me-in-production')
 
 # ---------------- App ----------------
-app = FastAPI(title="NEXGENT EXECUTVES Platform")
 app = FastAPI(title="NEXGENT EXECUTIVES Platform")
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://nexgen-executives.vercel.app",
+        "https://www.nexgen-executives.vercel.app",
         "http://localhost:5173",
         "http://localhost:3000",
     ],
-    allow_credentials=True,
-    allow_methods=["*"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
-
 api_router = APIRouter(prefix="/api")
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("arak")
+logger = logging.getLogger("nexgen-executives")
+
+@api_router.options("/{full_path:path}")
+async def options_handler(full_path: str):
+    return {}
 
 # ---------------- Roles & Sectors ----------------
 # Roles: admin, ceo, vp_development, vp_investment, dev_manager, tracker
