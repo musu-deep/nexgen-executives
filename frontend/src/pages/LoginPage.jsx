@@ -10,11 +10,11 @@ const DEMO_PASSWORD = "ExecAgent2026!";
 
 const ROLE_QUICK = [
   { email: "ceo@company.demo", label: "Chief Executive Officer", role: "ceo" },
-  { email: "development@company.demo", label: "Executive VP – Operations", role: "vp_development" },
-  { email: "investment@company.demo", label: "Executive VP – Strategy", role: "vp_investment" },
+  { email: "development@company.demo", label: "Executive VP – Development", role: "vp_development" },
+  { email: "investment@company.demo", label: "Executive VP – Investment", role: "vp_investment" },
   { email: "manager@company.demo", label: "Business Unit Manager", role: "dev_manager" },
-  { email: "followup@company.demo", label: "Executive Follow-up Officer", role: "tracker" },
-  { email: "admin@company.demo", label: "Platform Administrator", role: "admin" },
+  { email: "followup@company.demo", label: "Executive Follow-up", role: "tracker" },
+  { email: "admin@company.demo", label: "Administrator", role: "admin" },
 ];
 
 export default function LoginPage() {
@@ -31,7 +31,7 @@ export default function LoginPage() {
     desc: "An enterprise AI operating system for executive coordination, operational intelligence, strategic follow-up, and leadership decision-making.",
     sign: "Sign in",
     sub: "Secure access to the executive intelligence platform",
-    email: "Email address",
+    email: "Email",
     password: "Password",
     enter: "Enter Platform",
     checking: "Verifying...",
