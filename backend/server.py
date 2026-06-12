@@ -472,7 +472,7 @@ SEED_USERS = [
     {
         "email": "admin@company.demo",
         "password": "ExecAgent2026!",
-        "name": "System Administrator",
+        "name": "Admin",
         "role": "admin",
         "title": "System Administrator"
     },
@@ -486,28 +486,28 @@ SEED_USERS = [
     {
         "email": "development@company.demo",
         "password": "ExecAgent2026!",
-        "name": "Executive Vice President",
+        "name": "VP DEVELOPMENT",
         "role": "vp_development",
         "title": "Development Portfolio"
     },
     {
         "email": "investment@company.demo",
         "password": "ExecAgent2026!",
-        "name": "Executive Vice President",
+        "name": "VP Investment",
         "role": "vp_investment",
         "title": "Investment Portfolio"
     },
     {
         "email": "manager@company.demo",
         "password": "ExecAgent2026!",
-        "name": "Sector Manager",
+        "name": "Monitoring Manager",
         "role": "dev_manager",
         "title": "Business Unit Management"
     },
     {
         "email": "followup@company.demo",
         "password": "ExecAgent2026!",
-        "name": "Executive Follow-up Officer",
+        "name": "Follow-up Officer",
         "role": "tracker",
         "title": "Executive Follow-up Office"
     }
