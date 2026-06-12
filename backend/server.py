@@ -44,9 +44,7 @@ api_router = APIRouter(prefix="/api")
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("nexgen-executives")
 
-@api_router.options("/{full_path:path}")
-async def options_handler(full_path: str):
-    return {}
+
 
 # ---------------- Roles & Sectors ----------------
 # Roles: admin, ceo, vp_development, vp_investment, dev_manager, tracker
@@ -688,16 +686,3 @@ except ImportError:  # Allows running from inside the backend directory.
 
 # ---------------- Mount ----------------
 app.include_router(api_router)
-
-def _cors_origins():
-    raw = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000")
-    return [origin.strip() for origin in raw.split(",") if origin.strip()]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=_cors_origins(),
-    allow_methods=["*"],
-    allow_headers=["*"],
-    expose_headers=["*"],
-)
