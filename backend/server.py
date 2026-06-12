@@ -492,7 +492,7 @@ SEED_USERS = [
     },
     {
         "email": "investment@company.demo",
-        "password": "ExecAgent2026",
+        "password": "ExecAgent2026!",
         "name": "Executive Vice President",
         "role": "vp_investment",
         "title": "Investment Portfolio"
