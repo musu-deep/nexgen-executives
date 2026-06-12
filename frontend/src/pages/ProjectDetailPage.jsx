@@ -100,7 +100,7 @@ export default function ProjectDetailPage() {
                     <div className="font-medium text-slate-100">{t.title}</div>
                     <div className="text-xs text-slate-500 mt-1 flex gap-3">
                       <span>{STATUS_LABELS[t.status]}</span>
-                      <span>أولوية: {PRIORITY_LABELS[t.priority]}</span>
+                      <span>Priority: {PRIORITY_LABELS[t.priority]}</span>
                       {t.due_date && <span>الDue: {new Date(t.due_date).toLocaleDateString("en-US")}</span>}
                     </div>
                   </div>

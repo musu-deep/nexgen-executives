@@ -3,6 +3,7 @@ import axios from "axios";
 const BACKEND_URL =
   import.meta.env.VITE_BACKEND_URL ||
   "https://nexgen-executives.onrender.com";
+
 export const API = `${BACKEND_URL}/api`;
 
 const api = axios.create({
@@ -34,21 +35,21 @@ export function formatApiError(detail) {
 }
 
 export const SECTOR_LABELS = {
-  development: "General Development",
-  investment: "Investment",
-  arak_development: "ARAAK Development - Egypt",
-  academy: "Academy",
+  development: "Enterprise Development",
+  investment: "Investment Strategy",
+  arak_development: "Operations and Delivery",
+  academy: "Capability Building",
   digital: "Digital Transformation",
-  corporate: "Corporate Support",
+  corporate: "Corporate Services",
 };
 
 export const ROLE_LABELS = {
-  admin: "System Administrator",
+  admin: "Executive Platform Administrator",
   ceo: "Chief Executive Officer",
-  vp_development: "VP - Development",
-  vp_investment: "VP - Investment",
-  dev_manager: "ARAAK Development Manager - Egypt",
-  tracker: "Executive Follow-up Officer",
+  vp_development: "Executive VP - Development",
+  vp_investment: "Executive VP - Investment",
+  dev_manager: "Operations and Delivery",
+  tracker: "Executive Follow-Up",
 };
 
 export const STATUS_LABELS = {
