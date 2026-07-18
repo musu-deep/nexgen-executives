@@ -1,13 +1,18 @@
 import { useEffect } from "react";
 import { translateArabicText } from "../i18n/ar";
+import { translateExtraArabicText } from "../i18n/ar-extra";
 
 const SKIP_TAGS = new Set(["SCRIPT", "STYLE", "CODE", "PRE", "TEXTAREA"]);
 const TRANSLATABLE_ATTRIBUTES = ["placeholder", "title", "aria-label", "data-empty-label"];
 
+function translate(value) {
+  return translateExtraArabicText(translateArabicText(value));
+}
+
 function localizeTextNode(node) {
   if (!node?.parentElement || SKIP_TAGS.has(node.parentElement.tagName)) return;
   const current = node.nodeValue;
-  const translated = translateArabicText(current);
+  const translated = translate(current);
   if (translated !== current) node.nodeValue = translated;
 }
 
@@ -17,7 +22,7 @@ function localizeElement(element) {
   for (const attr of TRANSLATABLE_ATTRIBUTES) {
     if (!element.hasAttribute(attr)) continue;
     const current = element.getAttribute(attr);
-    const translated = translateArabicText(current);
+    const translated = translate(current);
     if (translated !== current) element.setAttribute(attr, translated);
   }
 
