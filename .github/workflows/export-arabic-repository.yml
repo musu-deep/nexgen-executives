@@ -19,12 +19,12 @@ jobs:
       - name: Create repository archive
         shell: bash
         run: |
-          tar --exclude=.git --exclude=.github/workflows/export-arabic-repository.yml -czf nexgen-executives-ar.tar.gz .
+          tar --exclude=.git --exclude=.github/workflows/export-arabic-repository.yml -czf "$RUNNER_TEMP/nexgen-executives-ar.tar.gz" .
 
       - name: Upload repository archive
         uses: actions/upload-artifact@v4
         with:
           name: nexgen-executives-ar-repository
-          path: nexgen-executives-ar.tar.gz
+          path: ${{ runner.temp }}/nexgen-executives-ar.tar.gz
           if-no-files-found: error
           retention-days: 7
