@@ -23,16 +23,17 @@ import SettingsPage from "./pages/SettingsPage";
 import DailyReportPage from "./pages/DailyReportPage";
 import AgentLoungePage from "./pages/AgentLoungePage";
 import AppLayout from "./components/AppLayout";
+import ArabicLocalization from "./components/ArabicLocalization";
 import "./App.css";
 
 function ProtectedRoute({ children, roles }) {
   const { user, loading } = useAuth();
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-slate-400">
+      <div className="min-h-screen flex items-center justify-center text-slate-400" dir="rtl">
         <div className="text-center">
           <div className="w-10 h-10 border-2 border-yellow-500/30 border-t-yellow-500 rounded-full animate-spin mx-auto mb-3"></div>
-          Verifying secure session...
+          جارٍ التحقق من الجلسة الآمنة...
         </div>
       </div>
     );
@@ -52,6 +53,7 @@ function PublicOnly({ children }) {
 function AppRoutes() {
   return (
     <BrowserRouter>
+      <ArabicLocalization />
       <Routes>
         <Route path="/login" element={<PublicOnly><LoginPage /></PublicOnly>} />
         <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
@@ -84,12 +86,12 @@ function AppRoutes() {
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" dir="rtl">
       <ThemeProvider>
         <LanguageProvider>
           <AuthProvider>
             <AppRoutes />
-            <Toaster position="top-center" theme="dark" richColors closeButton />
+            <Toaster position="top-center" theme="dark" richColors closeButton dir="rtl" />
           </AuthProvider>
         </LanguageProvider>
       </ThemeProvider>
