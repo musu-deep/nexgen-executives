@@ -3,18 +3,18 @@ import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { formatApiError } from "../lib/api";
 import { toast } from "sonner";
-import { Shield, ChevronRight, Building2, Sparkles } from "lucide-react";
+import { Shield, ChevronLeft, Building2, Sparkles } from "lucide-react";
 import NEXGEN_EXECUTIVES from "../assets/NEXGEN_EXECUTIVES.png";
 
 const DEMO_PASSWORD = "ExecAgent2026!";
 
 const ROLE_QUICK = [
-  { email: "ceo@company.demo", label: "Chief Executive Officer", role: "ceo" },
-  { email: "development@company.demo", label: "Executive VP – Development", role: "vp_development" },
-  { email: "investment@company.demo", label: "Executive VP – Investment", role: "vp_investment" },
-  { email: "manager@company.demo", label: "Business Unit Manager", role: "dev_manager" },
-  { email: "followup@company.demo", label: "Executive Follow-up", role: "tracker" },
-  { email: "admin@company.demo", label: "Administrator", role: "admin" },
+  { email: "ceo@company.demo", label: "الرئيس التنفيذي", role: "ceo" },
+  { email: "development@company.demo", label: "نائب الرئيس التنفيذي للتنمية", role: "vp_development" },
+  { email: "investment@company.demo", label: "نائب الرئيس التنفيذي للاستثمار", role: "vp_investment" },
+  { email: "manager@company.demo", label: "مدير وحدة الأعمال", role: "dev_manager" },
+  { email: "followup@company.demo", label: "المتابعة التنفيذية", role: "tracker" },
+  { email: "admin@company.demo", label: "مدير المنصة", role: "admin" },
 ];
 
 export default function LoginPage() {
@@ -26,23 +26,23 @@ export default function LoginPage() {
   const [err, setErr] = useState("");
 
   const copy = {
-    secure: "Executive Intelligence Platform",
-    title: "AI Chief of Staff",
-    desc: "An enterprise AI operating system for executive coordination, operational intelligence, strategic follow-up, and leadership decision-making.",
-    sign: "Sign in",
-    sub: "Secure access to the executive intelligence platform",
-    email: "Email",
-    password: "Password",
-    enter: "Enter Platform",
-    checking: "Verifying...",
-    quick: "Quick Login Accounts",
-    demo: "Demo password:",
-    toast: "Welcome to NEXGEN EXECUTIVES",
-    err: "Unable to sign in",
+    secure: "منصة الذكاء التنفيذي",
+    title: "رئيس الديوان الذكي",
+    desc: "نظام تشغيل مؤسسي مدعوم بالذكاء الاصطناعي لتنسيق العمل التنفيذي، وبناء الرؤية التشغيلية، ومتابعة الاستراتيجيات، ودعم قرارات القيادة.",
+    sign: "تسجيل الدخول",
+    sub: "دخول آمن إلى منصة الذكاء التنفيذي",
+    email: "البريد الإلكتروني",
+    password: "كلمة المرور",
+    enter: "دخول المنصة",
+    checking: "جارٍ التحقق...",
+    quick: "حسابات الدخول السريع",
+    demo: "كلمة مرور العرض:",
+    toast: "مرحبًا بك في NEXGEN EXECUTIVES",
+    err: "تعذر تسجيل الدخول",
     features: [
-      { v: "Gemini", l: "Executive AI" },
-      { v: "MongoDB", l: "Organizational Memory" },
-      { v: "MCP", l: "Agent Integration" },
+      { v: "Gemini", l: "الذكاء التنفيذي" },
+      { v: "MongoDB", l: "الذاكرة المؤسسية" },
+      { v: "MCP", l: "تكامل الوكلاء" },
     ],
   };
 
@@ -67,7 +67,7 @@ export default function LoginPage() {
   return (
     <div
       className="min-h-screen relative flex items-center justify-center overflow-hidden"
-      dir="ltr"
+      dir="rtl"
     >
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -77,17 +77,17 @@ export default function LoginPage() {
         }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-[#0a0d14]/85 to-black/70" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-[#0a0d14]/85 to-black/70" />
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-        <div className="text-left hidden lg:block space-y-7">
+        <div className="text-right hidden lg:block space-y-7">
           <img
             src={NEXGEN_EXECUTIVES}
             alt="NEXGEN EXECUTIVES OS"
             className="h-44 w-auto object-contain mb-2"
           />
 
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-yellow-500/20 bg-yellow-500/5 text-yellow-400 text-xs uppercase tracking-[0.25em]">
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-yellow-500/20 bg-yellow-500/5 text-yellow-400 text-xs tracking-[0.12em]">
             <Building2 size={14} />
             <span>{copy.secure}</span>
           </div>
@@ -96,7 +96,7 @@ export default function LoginPage() {
             <h1 className="font-heading font-black text-5xl text-slate-50 leading-tight">
               {copy.title}
             </h1>
-            <p className="mt-4 text-lg text-slate-400 leading-relaxed max-w-md">
+            <p className="mt-4 text-lg text-slate-400 leading-relaxed max-w-lg">
               {copy.desc}
             </p>
           </div>
@@ -104,13 +104,13 @@ export default function LoginPage() {
           <div className="gold-divider" />
 
           <div className="grid grid-cols-3 gap-4">
-            {copy.features.map((s) => (
-              <div key={s.v} className="glass-card p-4 text-center">
-                <div className="font-heading text-yellow-400 font-bold text-xl">
-                  {s.v}
+            {copy.features.map((item) => (
+              <div key={item.v} className="glass-card p-4 text-center">
+                <div className="font-heading text-yellow-400 font-bold text-xl" dir="ltr">
+                  {item.v}
                 </div>
-                <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">
-                  {s.l}
+                <div className="text-[11px] text-slate-500 mt-1">
+                  {item.l}
                 </div>
               </div>
             ))}
@@ -128,9 +128,9 @@ export default function LoginPage() {
               className="h-20 w-auto object-contain mx-auto mb-4 lg:hidden"
             />
 
-            <div className="inline-flex items-center gap-2 text-yellow-400 text-xs uppercase tracking-[0.25em] mb-3">
+            <div className="inline-flex items-center gap-2 text-yellow-400 text-xs tracking-[0.12em] mb-3">
               <Sparkles size={13} />
-              Hackathon Edition
+              نسخة الهاكاثون
             </div>
 
             <h2 className="font-heading text-2xl font-bold text-slate-50">
@@ -142,7 +142,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-xs uppercase tracking-widest text-slate-400 mb-2">
+              <label className="block text-xs text-slate-400 mb-2">
                 {copy.email}
               </label>
               <input
@@ -152,13 +152,13 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@company.demo"
-                className="w-full px-4 py-3 rounded-lg bg-[#0a0d14]/80 border border-white/10 focus:border-yellow-500/50 focus:outline-none focus:ring-1 focus:ring-yellow-500/30 text-slate-100 placeholder-slate-600 transition-colors"
+                className="w-full px-4 py-3 rounded-lg bg-[#0a0d14]/80 border border-white/10 focus:border-yellow-500/50 focus:outline-none focus:ring-1 focus:ring-yellow-500/30 text-slate-100 placeholder-slate-600 transition-colors text-left"
                 dir="ltr"
               />
             </div>
 
             <div>
-              <label className="block text-xs uppercase tracking-widest text-slate-400 mb-2">
+              <label className="block text-xs text-slate-400 mb-2">
                 {copy.password}
               </label>
               <input
@@ -167,7 +167,8 @@ export default function LoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg bg-[#0a0d14]/80 border border-white/10 focus:border-yellow-500/50 focus:outline-none focus:ring-1 focus:ring-yellow-500/30 text-slate-100 placeholder-slate-600 transition-colors"
+                className="w-full px-4 py-3 rounded-lg bg-[#0a0d14]/80 border border-white/10 focus:border-yellow-500/50 focus:outline-none focus:ring-1 focus:ring-yellow-500/30 text-slate-100 placeholder-slate-600 transition-colors text-left"
+                dir="ltr"
               />
             </div>
 
@@ -181,40 +182,40 @@ export default function LoginPage() {
               data-testid="login-submit-btn"
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold hover:from-yellow-400 hover:to-yellow-500 transition-all shadow-lg shadow-yellow-900/30 disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full py-3 rounded-lg bg-gradient-to-l from-yellow-500 to-yellow-600 text-black font-bold hover:from-yellow-400 hover:to-yellow-500 transition-all shadow-lg shadow-yellow-900/30 disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading ? (
                 copy.checking
               ) : (
                 <>
                   {copy.enter}
-                  <ChevronRight size={18} />
+                  <ChevronLeft size={18} />
                 </>
               )}
             </button>
           </form>
 
           <div className="mt-7 pt-6 border-t border-white/5">
-            <div className="text-[10px] uppercase tracking-widest text-slate-500 mb-3 flex items-center gap-2">
+            <div className="text-[11px] text-slate-500 mb-3 flex items-center gap-2">
               <Shield size={12} />
               {copy.quick}
             </div>
 
-            <div className="grid grid-cols-1 gap-1.5 max-h-44 overflow-y-auto pr-1">
-              {ROLE_QUICK.map((r) => (
+            <div className="grid grid-cols-1 gap-1.5 max-h-44 overflow-y-auto pl-1">
+              {ROLE_QUICK.map((role) => (
                 <button
-                  key={r.email}
+                  key={role.email}
                   type="button"
-                  data-testid={`quick-login-${r.role}`}
+                  data-testid={`quick-login-${role.role}`}
                   onClick={() => {
-                    setEmail(r.email);
+                    setEmail(role.email);
                     setPassword(DEMO_PASSWORD);
                   }}
                   className="px-3 py-2 rounded-md text-xs bg-white/[0.02] hover:bg-yellow-500/5 hover:border-yellow-500/20 border border-white/5 text-slate-300 transition-colors flex items-center justify-between gap-2"
                 >
-                  <span className="font-medium">{r.label}</span>
+                  <span className="font-medium">{role.label}</span>
                   <span className="text-slate-500 text-[10px] tabular-nums" dir="ltr">
-                    {r.email}
+                    {role.email}
                   </span>
                 </button>
               ))}
