@@ -1,118 +1,177 @@
-# NEXGEN EXECUTIVES
+# NEXGEN EXECUTIVES — النسخة العربية
 
-## Autonomous Executive Operating System
+## نظام التشغيل التنفيذي الذكي
 
-### Transforming Organizational Knowledge into Executive Action
+**تحويل المعرفة المؤسسية إلى قرارات وتنفيذ ومتابعة.**
 
-NEXGEN EXECUTIVES is an AI-powered executive operating system designed to help organizations transform fragmented institutional knowledge into coordinated executive action.
+NEXGEN EXECUTIVES منصة تشغيل تنفيذية مدعومة بالذكاء الاصطناعي، صُممت لمساعدة المؤسسات على تحويل المعرفة المتفرقة والبيانات التشغيلية إلى عمل تنفيذي منسق وقابل للمتابعة.
 
-Unlike traditional management systems that merely store information, NEXGEN EXECUTIVES actively understands documents, communications, meetings, projects, reports, and organizational interactions through an AI Orchestration Layer and a workforce of autonomous AI agents.
+لا تكتفي المنصة بحفظ المعلومات؛ بل تفهم المستندات والمراسلات والاجتماعات والمشروعات والمهام والتقارير من خلال طبقة تنسيق للذكاء الاصطناعي وقوى عاملة من الوكلاء المتخصصين.
 
-The platform continuously analyzes institutional activity, recommends actions, creates follow-ups, identifies risks, generates executive briefings, and supports leadership teams in making informed decisions.
+هذه النسخة عربية مستقلة من حيث:
 
----
-
-## Core Capabilities
-
-### AI Orchestration Layer
-
-A central intelligence layer that coordinates interactions across all organizational systems.
-
-### Document Intelligence Station
-
-Transforms uploaded documents into institutional intelligence by extracting:
-
-* Summaries
-* Key stakeholders
-* Dates
-* Obligations
-* Risks
-* Important clauses
-* Suggested actions
-
-### Communication Center
-
-AI-powered communication management including:
-
-* Summarization
-* Action extraction
-* Intelligent routing
-* Follow-up generation
-
-### Executive AI Lounge
-
-A centralized workspace for autonomous AI agents operating across the organization.
-
-### AI Workforce Status
-
-Real-time visibility into the activities of specialized AI agents.
+- الواجهة واتجاه العرض من اليمين إلى اليسار.
+- القوائم والحقول والحالات والأولويات والأدوار.
+- صفحات المشروعات والمهام والاجتماعات والطلبات والتقارير والمستندات.
+- رسائل النظام والتنبيهات والنوافذ التفاعلية.
+- مخرجات رئيس الديوان الذكي والموجز التنفيذي ورادار المخاطر.
+- أوامر ومخرجات Gemini باللغة العربية.
 
 ---
 
-## AI Workforce
+## القدرات الرئيسية
 
-* Chief of Staff Agent
-* Project Intelligence Agent
-* Meeting Intelligence Agent
-* Risk Monitoring Agent
-* Document Intelligence Agent
-* Reporting Agent
-* Executive Briefing Agent
-* Communication Agent
-* Task Agent
+### طبقة تنسيق الذكاء الاصطناعي
 
----
+تنسق تدفق العمل بين المشروعات والمهام والاجتماعات والمستندات والاتصالات، وتقترح المسؤول والقرار والإجراء التالي.
 
-## Technology Stack
+### محطة ذكاء المستندات
 
-Frontend:
+تحول المستندات المرفوعة إلى معرفة مؤسسية عبر استخراج:
 
-* React
-* Vite
-* Tailwind CSS
+- الملخصات.
+- الأطراف وأصحاب المصلحة.
+- التواريخ والالتزامات.
+- المخاطر والبنود المهمة.
+- المهام والاجتماعات المقترحة.
+- مسار الربط المؤسسي المناسب.
 
-Backend:
+### مركز الاتصالات
 
-* FastAPI
+يدعم تلخيص الرسائل، واستخراج الإجراءات، والتوجيه الذكي، وإنشاء المتابعات.
 
-Database:
+### صالة الوكلاء الذكيين
 
-* MongoDB
+مساحة موحدة لعرض الوكلاء وحالتهم وآخر أنشطتهم وتوصياتهم ومسارات عملهم.
 
-AI:
+### رئيس الديوان الذكي
 
-* Gemini
-* Google Cloud Agent Builder
-
-Partner Integration:
-
-* MongoDB MCP
-
-Voice Interface:
-
-* Speech Recognition API
+ينشئ موجزات تنفيذية عربية، ويرصد المخاطر والقرارات المتأخرة، ويقترح ترتيب الأولويات والخطوات التالية.
 
 ---
 
-## Use Cases
+## القوى العاملة الذكية
 
-* Executive Offices
-* Government Entities
-* NGOs
-* Family Offices
-* Enterprise Organizations
-* Project Management Offices (PMOs)
-
----
-
-## Vision
-
-Transforming Organizational Knowledge into Executive Action.
-
-NEXGEN EXECUTIVES represents a new generation of executive operating systems where AI agents collaborate alongside human leadership to accelerate decisions, improve coordination, and increase institutional effectiveness.
+- وكيل رئيس الديوان.
+- وكيل ذكاء المشروعات.
+- وكيل ذكاء الاجتماعات.
+- وكيل مراقبة المخاطر.
+- وكيل ذكاء المستندات.
+- وكيل الاتصالات.
+- وكيل المهام.
+- وكيل التقارير.
+- وكيل الإحاطة التنفيذية.
 
 ---
 
-## License
+## البنية التقنية
+
+- **الواجهة:** React + Vite + Tailwind CSS.
+- **الباكند:** FastAPI.
+- **قاعدة البيانات:** MongoDB.
+- **الذكاء الاصطناعي:** Google Gemini.
+- **التكامل:** MCP وواجهات Google Cloud المهيأة للمشروع.
+
+---
+
+## التشغيل المحلي
+
+### 1. تثبيت الواجهة
+
+```bash
+npm run install:frontend
+```
+
+### 2. تشغيل الباكند العربي
+
+أنشئ ملف `backend/.env` بالاعتماد على `backend/.env.example`، ثم نفّذ:
+
+```bash
+python -m pip install -r backend/requirements.txt
+npm run start:backend
+```
+
+يعمل الباكند افتراضيًا على:
+
+```text
+http://localhost:8001
+```
+
+### 3. تشغيل الواجهة
+
+في نافذة طرفية أخرى:
+
+```bash
+npm run dev
+```
+
+ثم افتح:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## متغيرات البيئة
+
+### الباكند
+
+```env
+MONGO_URL=mongodb://localhost:27017
+DB_NAME=nexgen_executives_ar
+JWT_SECRET=replace-with-a-strong-secret
+CORS_ORIGINS=http://localhost:5173,https://your-frontend.vercel.app
+GEMINI_API_KEY=
+GEMINI_MODEL=gemini-2.5-flash
+```
+
+### الواجهة
+
+أنشئ `frontend/.env`:
+
+```env
+VITE_BACKEND_URL=http://localhost:8001
+```
+
+---
+
+## النشر
+
+### Vercel — الواجهة
+
+إعدادات `vercel.json` جاهزة لبناء مجلد `frontend` وإخراج `frontend/dist`.
+
+أضف المتغير التالي في Vercel:
+
+```env
+VITE_BACKEND_URL=https://your-backend-domain.com
+```
+
+### Render أو خادم Python — الباكند
+
+استخدم أمر التشغيل التالي:
+
+```bash
+uvicorn backend.arabic_server:app --host 0.0.0.0 --port $PORT
+```
+
+> يجب استخدام `backend.arabic_server:app` بدلًا من `backend.server:app` لتفعيل المخرجات العربية الأصلية للذكاء الاصطناعي.
+
+---
+
+## حسابات العرض
+
+كلمة المرور التجريبية:
+
+```text
+ExecAgent2026!
+```
+
+تظهر حسابات الأدوار الجاهزة في صفحة تسجيل الدخول.
+
+---
+
+## الترخيص
 
 MIT License
