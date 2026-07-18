@@ -1,4 +1,5 @@
 import axios from "axios";
+import { translateArabicText } from "../i18n/ar";
 
 const BACKEND_URL =
   import.meta.env.VITE_BACKEND_URL ||
@@ -23,54 +24,54 @@ api.interceptors.request.use((config) => {
 export default api;
 
 export function formatApiError(detail) {
-  if (detail == null) return "Unexpected error";
-  if (typeof detail === "string") return detail;
+  if (detail == null) return "حدث خطأ غير متوقع";
+  if (typeof detail === "string") return translateArabicText(detail.trim());
   if (Array.isArray(detail))
     return detail
-      .map((e) => (e && typeof e.msg === "string" ? e.msg : JSON.stringify(e)))
+      .map((e) => (e && typeof e.msg === "string" ? translateArabicText(e.msg) : JSON.stringify(e)))
       .filter(Boolean)
       .join(" • ");
-  if (detail && typeof detail.msg === "string") return detail.msg;
-  return String(detail);
+  if (detail && typeof detail.msg === "string") return translateArabicText(detail.msg);
+  return translateArabicText(String(detail));
 }
 
 export const SECTOR_LABELS = {
-  development: "Enterprise Development",
-  investment: "Investment Strategy",
-  arak_development: "Operations and Delivery",
-  academy: "Capability Building",
-  digital: "Digital Transformation",
-  corporate: "Corporate Services",
+  development: "التنمية المؤسسية",
+  investment: "استراتيجية الاستثمار",
+  arak_development: "العمليات والتنفيذ",
+  academy: "بناء القدرات",
+  digital: "التحول الرقمي",
+  corporate: "الخدمات المؤسسية",
 };
 
 export const ROLE_LABELS = {
-  admin: "Executive Platform Administrator",
-  ceo: "Chief Executive Officer",
-  vp_development: "Executive VP - Development",
-  vp_investment: "Executive VP - Investment",
-  dev_manager: "Operations and Delivery",
-  tracker: "Executive Follow-Up",
+  admin: "مدير المنصة التنفيذية",
+  ceo: "الرئيس التنفيذي",
+  vp_development: "نائب الرئيس التنفيذي للتنمية",
+  vp_investment: "نائب الرئيس التنفيذي للاستثمار",
+  dev_manager: "مدير العمليات والتنفيذ",
+  tracker: "المتابعة التنفيذية",
 };
 
 export const STATUS_LABELS = {
-  planning: "Planning",
-  active: "Active",
-  on_hold: "On Hold",
-  completed: "Completed",
-  cancelled: "Cancelled",
-  pending: "Pending",
-  in_progress: "In Progress",
-  awaiting_approval: "Awaiting Approval",
-  delayed: "Delayed",
-  scheduled: "Scheduled",
-  rescheduled: "Rescheduled",
-  approved: "Approved",
-  rejected: "Rejected",
+  planning: "قيد التخطيط",
+  active: "نشط",
+  on_hold: "معلّق",
+  completed: "مكتمل",
+  cancelled: "ملغى",
+  pending: "قيد الانتظار",
+  in_progress: "قيد التنفيذ",
+  awaiting_approval: "بانتظار الاعتماد",
+  delayed: "متأخر",
+  scheduled: "مجدول",
+  rescheduled: "أعيدت جدولته",
+  approved: "معتمد",
+  rejected: "مرفوض",
 };
 
 export const PRIORITY_LABELS = {
-  low: "Low",
-  medium: "Medium",
-  high: "High",
-  critical: "Critical",
+  low: "منخفضة",
+  medium: "متوسطة",
+  high: "مرتفعة",
+  critical: "حرجة",
 };
