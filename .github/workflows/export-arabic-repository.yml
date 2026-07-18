@@ -1,0 +1,27 @@
+name: Export Arabic Repository
+
+on:
+  push:
+    branches:
+      - arabic-full-version
+  workflow_dispatch:
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Arabic branch
+        uses: actions/checkout@v4
+
+      - name: Create repository archive
+        shell: bash
+        run: |
+          tar --exclude=.git --exclude=.github/workflows/export-arabic-repository.yml -czf nexgen-executives-ar.tar.gz .
+
+      - name: Upload repository archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexgen-executives-ar-repository
+          path: nexgen-executives-ar.tar.gz
+          if-no-files-found: error
+          retention-days: 7
