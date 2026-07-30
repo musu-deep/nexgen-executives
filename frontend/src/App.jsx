@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "sonner";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { AccessProvider, useAccess } from "./contexts/AccessContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import LoginPage from "./pages/LoginPage";
@@ -13,6 +14,7 @@ import TasksPage from "./pages/TasksPage";
 import ReportsPage from "./pages/ReportsPage";
 import TeamPage from "./pages/TeamPage";
 import AdminPage from "./pages/AdminPage";
+import AccessControlPage from "./pages/AccessControlPage";
 import MeetingsPage from "./pages/MeetingsPage";
 import MeetingRequestsPage from "./pages/MeetingRequestsPage";
 import DocumentsPage from "./pages/DocumentsPage";
@@ -26,28 +28,32 @@ import AgentLoungePage from "./pages/AgentLoungePage";
 import AppLayout from "./components/AppLayout";
 import "./App.css";
 
-function ProtectedRoute({ children, roles }) {
-  const { user, loading } = useAuth();
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-slate-400">
-        <div className="text-center">
-          <div className="w-10 h-10 border-2 border-yellow-500/30 border-t-yellow-500 rounded-full animate-spin mx-auto mb-3"></div>
-          Verifying secure session...
-        </div>
-      </div>
-    );
-  }
+function LoadingScreen() {
+  return <div className="min-h-screen flex items-center justify-center text-slate-400"><div className="text-center"><div className="w-10 h-10 border-2 border-yellow-500/30 border-t-yellow-500 rounded-full animate-spin mx-auto mb-3" />Verifying secure session...</div></div>;
+}
+
+function ProtectedRoute({ children, permission }) {
+  const { user, loading: authLoading } = useAuth();
+  const { loading: accessLoading, can } = useAccess();
+  if (authLoading || (user && accessLoading)) return <LoadingScreen />;
   if (!user) return <Navigate to="/login" replace />;
-  if (roles && !roles.includes(user.role)) return <Navigate to="/dashboard" replace />;
+  if (permission && !can(permission)) return <Navigate to={can("access.manage") ? "/access-control" : "/"} replace />;
   return children;
 }
 
 function PublicOnly({ children }) {
   const { user, loading } = useAuth();
   if (loading) return null;
-  if (user) return <Navigate to="/dashboard" replace />;
+  if (user) return <Navigate to="/" replace />;
   return children;
+}
+
+function HomeRedirect() {
+  const { can } = useAccess();
+  if (can("dashboard.view")) return <Navigate to="/dashboard" replace />;
+  if (can("access.manage")) return <Navigate to="/access-control" replace />;
+  if (can("project.view")) return <Navigate to="/projects" replace />;
+  return <Navigate to="/settings" replace />;
 }
 
 function AppRoutes() {
@@ -57,26 +63,27 @@ function AppRoutes() {
         <Route path="/login" element={<PublicOnly><LoginPage /></PublicOnly>} />
         <Route path="/activate" element={<ActivateAccountPage />} />
         <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/projects/:id" element={<ProjectDetailPage />} />
-          <Route path="/tasks" element={<TasksPage />} />
-          <Route path="/meetings" element={<MeetingsPage />} />
-          <Route path="/meeting-requests" element={<MeetingRequestsPage />} />
-          <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/documents" element={<DocumentsPage />} />
-          <Route path="/messages" element={<MessagesPage />} />
+          <Route path="/" element={<HomeRedirect />} />
+          <Route path="/dashboard" element={<ProtectedRoute permission="dashboard.view"><DashboardPage /></ProtectedRoute>} />
+          <Route path="/projects" element={<ProtectedRoute permission="project.view"><ProjectsPage /></ProtectedRoute>} />
+          <Route path="/projects/:id" element={<ProtectedRoute permission="project.view"><ProjectDetailPage /></ProtectedRoute>} />
+          <Route path="/tasks" element={<ProtectedRoute permission="task.view"><TasksPage /></ProtectedRoute>} />
+          <Route path="/meetings" element={<ProtectedRoute permission="meeting.view"><MeetingsPage /></ProtectedRoute>} />
+          <Route path="/meeting-requests" element={<ProtectedRoute permission="meeting.view"><MeetingRequestsPage /></ProtectedRoute>} />
+          <Route path="/calendar" element={<ProtectedRoute permission="meeting.view"><CalendarPage /></ProtectedRoute>} />
+          <Route path="/documents" element={<ProtectedRoute permission="document.view"><DocumentsPage /></ProtectedRoute>} />
+          <Route path="/messages" element={<ProtectedRoute permission="message.view"><MessagesPage /></ProtectedRoute>} />
           <Route path="/notifications" element={<NotificationsPage />} />
-          <Route path="/voice" element={<ProtectedRoute roles={["ceo", "admin"]}><VoiceInputPage /></ProtectedRoute>} />
-          <Route path="/daily-report" element={<DailyReportPage />} />
-          <Route path="/ai-lounge" element={<AgentLoungePage />} />
+          <Route path="/voice" element={<ProtectedRoute permission="voice.use"><VoiceInputPage /></ProtectedRoute>} />
+          <Route path="/daily-report" element={<ProtectedRoute permission="report.view"><DailyReportPage /></ProtectedRoute>} />
+          <Route path="/ai-lounge" element={<ProtectedRoute permission="ai.use"><AgentLoungePage /></ProtectedRoute>} />
           <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/reports" element={<ReportsPage />} />
-          <Route path="/team" element={<TeamPage />} />
-          <Route path="/admin" element={<ProtectedRoute roles={["admin"]}><AdminPage /></ProtectedRoute>} />
+          <Route path="/reports" element={<ProtectedRoute permission="report.view"><ReportsPage /></ProtectedRoute>} />
+          <Route path="/team" element={<ProtectedRoute permission="user.view"><TeamPage /></ProtectedRoute>} />
+          <Route path="/admin" element={<ProtectedRoute permission="user.view"><AdminPage /></ProtectedRoute>} />
+          <Route path="/access-control" element={<ProtectedRoute permission="access.manage"><AccessControlPage /></ProtectedRoute>} />
         </Route>
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
@@ -88,8 +95,10 @@ function App() {
       <ThemeProvider>
         <LanguageProvider>
           <AuthProvider>
-            <AppRoutes />
-            <Toaster position="top-center" theme="dark" richColors closeButton />
+            <AccessProvider>
+              <AppRoutes />
+              <Toaster position="top-center" theme="dark" richColors closeButton />
+            </AccessProvider>
           </AuthProvider>
         </LanguageProvider>
       </ThemeProvider>
