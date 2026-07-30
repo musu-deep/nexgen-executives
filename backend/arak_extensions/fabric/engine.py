@@ -39,7 +39,7 @@ def _public(item: Optional[dict]) -> Optional[dict]:
     return {k: v for k, v in item.items() if k not in {"_id", "password_hash", "invite_token_hash"}}
 
 
-async def require_permission(permission: str):
+def require_permission(permission: str):
     async def dependency(user=Depends(core.get_current_user)):
         decision = await evaluate_access(user, permission)
         if not decision["allowed"]:
