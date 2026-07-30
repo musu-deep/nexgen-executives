@@ -22,7 +22,12 @@ def _route_permission(method: str, path: str) -> tuple[str, Optional[str], Optio
     resource_type: Optional[str] = None
 
     if path.startswith("/api/access/") or path == "/api/access":
-        return ("platform.access" if path == "/api/access/me" else "access.manage", None, None)
+        if path == "/api/access/me": return "platform.access", None, None
+        if path.startswith("/api/access/audit"): return "audit.view", None, None
+        if path.startswith("/api/access/delegations"): return "delegation.manage", None, None
+        if path.startswith("/api/access/organizations") or path.startswith("/api/access/units"):
+            return "organization.manage", None, None
+        return "access.manage", None, None
     if path.startswith("/api/users"):
         if method == "GET": return "user.view", "user", None
         if "/invite" in path or path.endswith("/reset-invite"): return "user.invite", "user", _last_id(path, "users")
