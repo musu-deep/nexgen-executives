@@ -391,14 +391,51 @@ async def secure_access_startup() -> None:
             )
         logger.warning("Demo users are enabled by ENABLE_DEMO_USERS=true.")
     else:
-        await core.db.users.update_many(
-            {"$or": [{"demo": True}, {"email": {"$regex": r"@company\.demo$", "$options": "i"}}]},
-            {"$set": {"active": False, "demo": True, "updated_at": core.now_iso()}},
-        )
+        demo_filter = {"$or": [
+            {"demo": True},
+            {"email": {"$regex": r"@company\.demo$", "$options": "i"}},
+        ]}
+        active_admins = await core.db.users.find(
+            {"role": "admin", "active": True},
+            {"_id": 0},
+        ).to_list(100)
+        non_demo_admin = next((
+            item for item in active_admins
+            if not item.get("demo")
+            and not str(item.get("email", "")).lower().endswith("@company.demo")
+        ), None)
 
-        active_admin = await core.db.users.find_one({"role": "admin", "active": True})
-        pending_admin = await core.db.users.find_one({"role": "admin", "invitation_status": "pending"}, {"_id": 0})
-        if not active_admin and not pending_admin:
+        if non_demo_admin:
+            await core.db.users.update_many(
+                demo_filter,
+                {"$set": {
+                    "active": False,
+                    "demo": True,
+                    "migration_required": False,
+                    "updated_at": core.now_iso(),
+                }},
+            )
+        else:
+            # Safe migration: retain the existing demo administrator only until a
+            # real administrator activates the bootstrap invitation. On the next
+            # restart all demo accounts are disabled automatically.
+            await core.db.users.update_many(
+                demo_filter,
+                {"$set": {
+                    "demo": True,
+                    "migration_required": True,
+                    "updated_at": core.now_iso(),
+                }},
+            )
+            logger.warning(
+                "Temporary migration access is active because no non-demo administrator exists yet."
+            )
+
+        pending_admin = await core.db.users.find_one(
+            {"role": "admin", "invitation_status": "pending", "demo": {"$ne": True}},
+            {"_id": 0},
+        )
+        if not non_demo_admin and not pending_admin:
             bootstrap_email = os.getenv("BOOTSTRAP_ADMIN_EMAIL", "admin@araak.org").strip().lower()
             bootstrap = {
                 "id": core.new_id(),
