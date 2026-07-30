@@ -177,7 +177,7 @@ async def invite_user(payload: InviteUserInput, admin=Depends(core.require_roles
         await core.db.users.insert_one(dict(user))
 
     if payload.access_role_id:
-        from .access_fabric import assign_primary_role
+        from .fabric import assign_primary_role
         await assign_primary_role(user["id"], payload.access_role_id, admin, payload.scope_type, payload.scope_id)
     return await _issue_invitation(user, admin, reset_access=False)
 
@@ -319,4 +319,4 @@ async def secure_access_startup() -> None:
 
 
 # Load the data-driven authorization engine after identity routes are ready.
-from . import access_fabric  # noqa: E402,F401
+from . import fabric  # noqa: E402,F401
